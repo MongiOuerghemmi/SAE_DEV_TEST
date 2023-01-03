@@ -22,7 +22,7 @@ namespace SAE_DEV_TEST
             // TODO: Add your initialization logic here
 
             base.Initialize();
-            
+            SuppressDraw
         }
 
         protected override void LoadContent()
@@ -44,8 +44,8 @@ namespace SAE_DEV_TEST
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            
+            GraphicsDevice.Clear(Color.Red);
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
