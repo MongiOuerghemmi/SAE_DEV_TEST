@@ -22,6 +22,7 @@ namespace SAE_DEV_TEST
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            SuppressDraw
         }
 
         protected override void LoadContent()
