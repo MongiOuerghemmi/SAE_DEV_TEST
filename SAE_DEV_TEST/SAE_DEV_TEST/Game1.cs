@@ -47,7 +47,7 @@ namespace SAE_DEV_TEST
             
             GraphicsDevice.Clear(Color.Red);
             // TODO: Add your drawing code here
-            sjdjdjdjd
+            sjdjdjdjddhdhdhd
             base.Draw(gameTime);
         }
     }
