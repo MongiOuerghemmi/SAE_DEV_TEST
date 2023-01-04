@@ -14,6 +14,7 @@ namespace SAE_DEV_TEST
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Vector2 _positionPerso;
+        private Vector2 _scalePerso;
         private AnimatedSprite _perso;
         private KeyboardState _keyboardState;
         private int _sensPersoX;
@@ -21,13 +22,13 @@ namespace SAE_DEV_TEST
         private int _vitessePerso;
 
         private Matrix _tileMapMatrix;
-        public const float SCALE = 2;
-        private Matrix _PersoMatrix;
+        public const float SCALE = 4;
+        private Matrix _persoMatrix;
 
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
-        public const int TAILLE_FENETRE_X = 480*2;
-        public const int TAILLE_FENETRE_Y = 256*2;
+        public const int TAILLE_FENETRE_X = 480*4;
+        public const int TAILLE_FENETRE_Y = 256*4;
 
         private TiledMapTileLayer mapLayer;
 
@@ -44,7 +45,8 @@ namespace SAE_DEV_TEST
             // TODO: Add your initialization logic here
 
             _positionPerso = new Vector2(10, 200);
-            _vitessePerso = 1;
+            _scalePerso = new Vector2(3, 3);
+            _vitessePerso = 3;
 
             
 
@@ -66,7 +68,7 @@ namespace SAE_DEV_TEST
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
 
             _tileMapMatrix = Matrix.CreateScale(SCALE);
-            _PersoMatrix = Matrix.CreateScale(SCALE);
+            _persoMatrix = Matrix.CreateScale(SCALE);
 
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("PersoAnimation.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
@@ -134,11 +136,12 @@ namespace SAE_DEV_TEST
         protected override void Draw(GameTime gameTime)
         {
             
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.Green);
             // TODO: Add your drawing code here
             _tiledMapRenderer.Draw(viewMatrix:_tileMapMatrix);
+            
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_perso, _positionPerso);
+            _spriteBatch.Draw(_perso, _positionPerso, 0, _scalePerso);
             _spriteBatch.End();
 
             base.Draw(gameTime);
