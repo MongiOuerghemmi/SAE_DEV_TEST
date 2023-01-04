@@ -1,14 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using MonoGame.Extended.Tiled;
+using MonoGame.Extended.Tiled.Renderers;
+using MonoGame.Extended.Sprites;
+using MonoGame.Extended.Content;
+using MonoGame.Extended.Serialization;
 namespace SAE_DEV_TEST
 {
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private SpriteBatch _spriteBatch2;
+        
 
         public Game1()
         {
@@ -22,7 +26,7 @@ namespace SAE_DEV_TEST
             // TODO: Add your initialization logic here
 
             base.Initialize();
-            SuppressDraw
+           
         }
 
         protected override void LoadContent()
@@ -47,9 +51,6 @@ namespace SAE_DEV_TEST
             
             GraphicsDevice.Clear(Color.Red);
             // TODO: Add your drawing code here
-            sjdjdjdjddhdhdhddsqdqsdqsqsdqsdqs
-
-                ouui
             base.Draw(gameTime);
         }
     }
