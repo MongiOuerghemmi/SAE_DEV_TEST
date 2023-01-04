@@ -38,7 +38,7 @@ namespace SAE_DEV_TEST
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             
-            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("Perso.sf", new JsonContentLoader());
+            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("PersoAnimation.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
 
             // TODO: use this.Content to load your game content here
