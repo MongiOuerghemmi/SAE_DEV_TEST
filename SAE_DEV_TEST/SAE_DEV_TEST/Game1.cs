@@ -6,6 +6,7 @@ using MonoGame.Extended.Tiled.Renderers;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Serialization;
+using MonoGame.Extended.Animations;
 namespace SAE_DEV_TEST
 {
     public class Game1 : Game
