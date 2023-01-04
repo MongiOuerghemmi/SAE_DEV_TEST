@@ -7,6 +7,8 @@ using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Animations;
+using MonoGame.Extended.Screens;
+using MonoGame.Extended.Screens.Transitions;
 namespace SAE_DEV_TEST
 {
     public class Game1 : Game
@@ -141,7 +143,7 @@ namespace SAE_DEV_TEST
             _positionPerso.X += _sensPersoX * _vitessePerso * deltaTime;
             _positionPerso.Y += _sensPersoY * _vitessePerso * deltaTime;
 
-
+            
 
             base.Update(gameTime);
         }
@@ -168,5 +170,8 @@ namespace SAE_DEV_TEST
                 return true;
             return false;
         }
+
+        
+
     }
 }
