@@ -22,11 +22,14 @@ namespace SAE_DEV_TEST
 
         private Matrix _tileMapMatrix;
         public const float SCALE = 2;
+        private Matrix _PersoMatrix;
 
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
         public const int TAILLE_FENETRE_X = 480*2;
         public const int TAILLE_FENETRE_Y = 256*2;
+
+        private TiledMapTileLayer mapLayer;
 
 
         public Game1()
@@ -63,9 +66,12 @@ namespace SAE_DEV_TEST
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
 
             _tileMapMatrix = Matrix.CreateScale(SCALE);
+            _PersoMatrix = Matrix.CreateScale(SCALE);
 
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("PersoAnimation.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
+
+            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("obstacles");
 
             // TODO: use this.Content to load your game content here
         }
