@@ -14,7 +14,6 @@ namespace SAE_DEV_TEST
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Vector2 _positionPerso;
-        private Vector2 _scalePerso;
         private AnimatedSprite _perso;
         private KeyboardState _keyboardState;
         private int _sensPersoX;
@@ -22,13 +21,14 @@ namespace SAE_DEV_TEST
         private int _vitessePerso;
 
         private Matrix _tileMapMatrix;
-        public const float SCALE = 1;
+        public const float SCALE = 2;
+        private Vector2 _scalePerso;
 
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
-        public const int TAILLE_FENETRE_X = 480*2;
-        public const int TAILLE_FENETRE_Y = 256*2;
-        
+        public const int TAILLE_FENETRE_X = (480 * 2);
+        public const int TAILLE_FENETRE_Y = (288 * 2);
+
         private TiledMapTileLayer mapLayer;
 
 
@@ -43,10 +43,10 @@ namespace SAE_DEV_TEST
         {
             // TODO: Add your initialization logic here
 
-            _positionPerso = new Vector2(224, 144);
-            _vitessePerso = 1;
+            _positionPerso = new Vector2(300, 300);
+            _vitessePerso = 2;
 
-            
+
 
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
 
@@ -66,11 +66,11 @@ namespace SAE_DEV_TEST
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
 
             _tileMapMatrix = Matrix.CreateScale(SCALE);
-
+            _scalePerso = new Vector2(SCALE, SCALE);
 
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("PersoAnimation.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
-            
+
             mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("Maison");
 
             // TODO: use this.Content to load your game content here
@@ -92,21 +92,19 @@ namespace SAE_DEV_TEST
             if (_keyboardState.IsKeyDown(Keys.Right)) //&& !(_keyboardState.IsKeyDown(Keys.Up)) && !(_keyboardState.IsKeyDown(Keys.Down))) 
             {
                 _perso.Play("walkingRight");
-                //_sensPersoX = 1;
-                ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth + 1);
-                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
+                ushort tx = (ushort)((_positionPerso.X / _tiledMap.TileWidth + 1) / SCALE);
+                ushort ty = (ushort)((_positionPerso.Y / _tiledMap.TileHeight) / SCALE);
 
                 if (!IsCollision(tx, ty))
                     _positionPerso.X += _vitessePerso;
-                
+
             }
             // si fleche gauche
             if (_keyboardState.IsKeyDown(Keys.Left))
             {
                 _perso.Play("walkingLeft");
-                //_sensPersoX = -1;
-                ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth - 1);
-                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
+                ushort tx = (ushort)((_positionPerso.X / _tiledMap.TileWidth - 1) / SCALE);
+                ushort ty = (ushort)((_positionPerso.Y / _tiledMap.TileHeight) / SCALE);
 
                 if (!IsCollision(tx, ty))
                     _positionPerso.X += -_vitessePerso;
@@ -115,27 +113,25 @@ namespace SAE_DEV_TEST
             if (_keyboardState.IsKeyDown(Keys.Up))
             {
                 _perso.Play("walkingUp");
-                //_sensPersoY = -1;
-                ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth );
-                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight - 1);
-                
+                ushort tx = (ushort)((_positionPerso.X / _tiledMap.TileWidth) / SCALE);
+                ushort ty = (ushort)((_positionPerso.Y / _tiledMap.TileHeight - 1) / SCALE);
+
                 if (!IsCollision(tx, ty))
-                   _positionPerso.Y += -_vitessePerso;
+                    _positionPerso.Y += -_vitessePerso;
             }
             // si fleche bas
             if (_keyboardState.IsKeyDown(Keys.Down))
             {
                 _perso.Play("walkingDown");
-                //_sensPersoY = 1;
-                ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth );
-                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight + 1);
+                ushort tx = (ushort)((_positionPerso.X / _tiledMap.TileWidth) / SCALE);
+                ushort ty = (ushort)((_positionPerso.Y / _tiledMap.TileHeight + 1) / SCALE);
 
                 if (!IsCollision(tx, ty))
                     _positionPerso.Y += _vitessePerso;
             }
-            
-            
-            if(!(_keyboardState.IsKeyDown(Keys.Right) || _keyboardState.IsKeyDown(Keys.Up) || _keyboardState.IsKeyDown(Keys.Down) || _keyboardState.IsKeyDown(Keys.Left)))
+
+
+            if (!(_keyboardState.IsKeyDown(Keys.Right) || _keyboardState.IsKeyDown(Keys.Up) || _keyboardState.IsKeyDown(Keys.Down) || _keyboardState.IsKeyDown(Keys.Left)))
             {
                 _sensPersoX = 0;
                 _sensPersoY = 0;
@@ -144,7 +140,7 @@ namespace SAE_DEV_TEST
 
             _positionPerso.X += _sensPersoX * _vitessePerso * deltaTime;
             _positionPerso.Y += _sensPersoY * _vitessePerso * deltaTime;
-            
+
 
 
             base.Update(gameTime);
@@ -152,11 +148,10 @@ namespace SAE_DEV_TEST
 
         protected override void Draw(GameTime gameTime)
         {
-            
-            GraphicsDevice.Clear(Color.Green);
+
+            GraphicsDevice.Clear(Color.Black);
             // TODO: Add your drawing code here
-            _tiledMapRenderer.Draw(viewMatrix:_tileMapMatrix);
-            
+            _tiledMapRenderer.Draw(viewMatrix: _tileMapMatrix);
             _spriteBatch.Begin();
             _spriteBatch.Draw(_perso, _positionPerso, 0, _scalePerso);
             _spriteBatch.End();
