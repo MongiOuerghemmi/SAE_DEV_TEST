@@ -22,14 +22,14 @@ namespace SAE_DEV_TEST
         private int _vitessePerso;
 
         private Matrix _tileMapMatrix;
-        public const float SCALE = 4;
-        private Matrix _persoMatrix;
+        public const float SCALE = 1;
+        private Matrix _PersoMatrix;
 
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
-        public const int TAILLE_FENETRE_X = 480*4;
-        public const int TAILLE_FENETRE_Y = 256*4;
-
+        public const int TAILLE_FENETRE_X = 480*2;
+        public const int TAILLE_FENETRE_Y = 256*2;
+        
         private TiledMapTileLayer mapLayer;
 
 
@@ -44,9 +44,8 @@ namespace SAE_DEV_TEST
         {
             // TODO: Add your initialization logic here
 
-            _positionPerso = new Vector2(10, 200);
-            _scalePerso = new Vector2(3, 3);
-            _vitessePerso = 3;
+            _positionPerso = new Vector2(224, 144);
+            _vitessePerso = 1;
 
             
 
@@ -72,8 +71,8 @@ namespace SAE_DEV_TEST
 
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("PersoAnimation.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
-
-            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("obstacles");
+            
+            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("Maison");
 
             // TODO: use this.Content to load your game content here
         }
@@ -95,7 +94,11 @@ namespace SAE_DEV_TEST
             {
                 _perso.Play("walkingRight");
                 //_sensPersoX = 1;
-                _positionPerso.X += _vitessePerso;
+                ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth + 1);
+                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
+
+                if (!IsCollision(tx, ty))
+                    _positionPerso.X += _vitessePerso;
                 
             }
             // si fleche gauche
@@ -103,21 +106,33 @@ namespace SAE_DEV_TEST
             {
                 _perso.Play("walkingLeft");
                 //_sensPersoX = -1;
-                _positionPerso.X += -_vitessePerso;
+                ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth - 1);
+                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
+
+                if (!IsCollision(tx, ty))
+                    _positionPerso.X += -_vitessePerso;
             }
             // si fleche haute
             if (_keyboardState.IsKeyDown(Keys.Up))
             {
                 _perso.Play("walkingUp");
                 //_sensPersoY = -1;
-                _positionPerso.Y += -_vitessePerso;
+                ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth );
+                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight - 1);
+                
+                if (!IsCollision(tx, ty))
+                   _positionPerso.Y += -_vitessePerso;
             }
             // si fleche bas
             if (_keyboardState.IsKeyDown(Keys.Down))
             {
                 _perso.Play("walkingDown");
                 //_sensPersoY = 1;
-                _positionPerso.Y += _vitessePerso;
+                ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth );
+                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight + 1);
+
+                if (!IsCollision(tx, ty))
+                    _positionPerso.Y += _vitessePerso;
             }
             
             
@@ -130,6 +145,9 @@ namespace SAE_DEV_TEST
 
             _positionPerso.X += _sensPersoX * _vitessePerso * deltaTime;
             _positionPerso.Y += _sensPersoY * _vitessePerso * deltaTime;
+            
+
+
             base.Update(gameTime);
         }
 
@@ -145,6 +163,16 @@ namespace SAE_DEV_TEST
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+        private bool IsCollision(ushort x, ushort y)
+        {
+            // définition de tile qui peut être null (?)
+            TiledMapTile? tile;
+            if (mapLayer.TryGetTile(x, y, out tile) == false)
+                return false;
+            if (!tile.Value.IsBlank)
+                return true;
+            return false;
         }
     }
 }
