@@ -13,6 +13,8 @@ namespace SAE_DEV_TEST
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Vector2 _positionPerso;
+        private AnimatedSprite _perso;
         
 
         public Game1()
@@ -26,6 +28,8 @@ namespace SAE_DEV_TEST
         {
             // TODO: Add your initialization logic here
 
+            _positionPerso = new Vector2(20, 340);
+
             base.Initialize();
            
         }
@@ -33,6 +37,9 @@ namespace SAE_DEV_TEST
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            
+            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("Perso.sf", new JsonContentLoader());
+            _perso = new AnimatedSprite(spriteSheet);
 
             // TODO: use this.Content to load your game content here
         }
@@ -43,6 +50,11 @@ namespace SAE_DEV_TEST
                 Exit();
 
             // TODO: Add your update logic here
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+
+            _perso.Play("idle"); // une des animations définies dans « animation.sf »
+            _perso.Update(deltaTime); // time écoulé
 
             base.Update(gameTime);
         }
@@ -52,6 +64,11 @@ namespace SAE_DEV_TEST
             
             GraphicsDevice.Clear(Color.Red);
             // TODO: Add your drawing code here
+
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(_perso, _positionPerso);
+            _spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }
