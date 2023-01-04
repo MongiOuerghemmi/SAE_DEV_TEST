@@ -23,7 +23,6 @@ namespace SAE_DEV_TEST
 
         private Matrix _tileMapMatrix;
         public const float SCALE = 1;
-        private Matrix _PersoMatrix;
 
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
@@ -67,7 +66,7 @@ namespace SAE_DEV_TEST
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
 
             _tileMapMatrix = Matrix.CreateScale(SCALE);
-            _persoMatrix = Matrix.CreateScale(SCALE);
+
 
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("PersoAnimation.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
