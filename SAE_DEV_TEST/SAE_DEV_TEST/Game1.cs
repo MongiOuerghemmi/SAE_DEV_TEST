@@ -20,6 +20,14 @@ namespace SAE_DEV_TEST
         private int _sensPersoY;
         private int _vitessePerso;
 
+        private Matrix _tileMapMatrix;
+        public const float SCALE = 2;
+
+        private TiledMap _tiledMap;
+        private TiledMapRenderer _tiledMapRenderer;
+        public const int TAILLE_FENETRE_X = 480*2;
+        public const int TAILLE_FENETRE_Y = 256*2;
+
 
         public Game1()
         {
@@ -32,16 +40,30 @@ namespace SAE_DEV_TEST
         {
             // TODO: Add your initialization logic here
 
-            _positionPerso = new Vector2(20, 340);
+            _positionPerso = new Vector2(10, 200);
             _vitessePerso = 1;
+
+            
+
+            GraphicsDevice.BlendState = BlendState.AlphaBlend;
+
+            _graphics.PreferredBackBufferWidth = TAILLE_FENETRE_X;
+            _graphics.PreferredBackBufferHeight = TAILLE_FENETRE_Y;
+
+            _graphics.ApplyChanges();
+
             base.Initialize();
-           
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+
+            _tiledMap = Content.Load<TiledMap>("principale");
+            _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
+
+            _tileMapMatrix = Matrix.CreateScale(SCALE);
+
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("PersoAnimation.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
 
@@ -57,7 +79,7 @@ namespace SAE_DEV_TEST
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _keyboardState = Keyboard.GetState();
 
-            
+            _tiledMapRenderer.Update(gameTime);
             _perso.Update(deltaTime); // time écoulé
 
             // si fleche droite
@@ -106,9 +128,9 @@ namespace SAE_DEV_TEST
         protected override void Draw(GameTime gameTime)
         {
             
-            GraphicsDevice.Clear(Color.Red);
+            GraphicsDevice.Clear(Color.Black);
             // TODO: Add your drawing code here
-
+            _tiledMapRenderer.Draw(viewMatrix:_tileMapMatrix);
             _spriteBatch.Begin();
             _spriteBatch.Draw(_perso, _positionPerso);
             _spriteBatch.End();
