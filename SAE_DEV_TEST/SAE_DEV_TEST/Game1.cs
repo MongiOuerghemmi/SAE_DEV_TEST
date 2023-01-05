@@ -28,8 +28,8 @@ namespace SAE_DEV_TEST
 
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
-        public const int TAILLE_FENETRE_X = (480 * 2);
-        public const int TAILLE_FENETRE_Y = (288 * 2);
+        public const int TAILLE_FENETRE_X = (1720);
+        public const int TAILLE_FENETRE_Y = (880);
 
         private TiledMapTileLayer mapLayer;
 
@@ -45,7 +45,7 @@ namespace SAE_DEV_TEST
         {
             // TODO: Add your initialization logic here
 
-            _positionPerso = new Vector2(300, 300);
+            _positionPerso = new Vector2(200 * SCALE, 200 * SCALE);
             _vitessePerso = 2;
 
 
@@ -68,7 +68,7 @@ namespace SAE_DEV_TEST
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
 
             _tileMapMatrix = Matrix.CreateScale(SCALE);
-            _scalePerso = new Vector2(SCALE, SCALE);
+            _scalePerso = new Vector2(SCALE - 1, SCALE - 1);
 
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("PersoAnimation.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
