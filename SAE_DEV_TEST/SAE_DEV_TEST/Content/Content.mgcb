@@ -18,6 +18,24 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Arme.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Arme.png
+
+#begin ArmeAnimation.sf
+/importer:SpriteFactoryContentImporter
+/processor:SpriteFactoryContentProcessor
+/processorParam:ContentType=MonoGame.Extended MonoGame.Extended.Animations.SpriteFactory.SpriteFactoryFileReader, MonoGame.Extended.Animations
+/build:ArmeAnimation.sf
+
 #begin gardentiles1byL0velyBlueonDeviantArt.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -29,18 +47,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:gardentiles1byL0velyBlueonDeviantArt.png
-
-#begin Perso.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Perso.png
 
 #begin Perso.png
 /importer:TextureImporter

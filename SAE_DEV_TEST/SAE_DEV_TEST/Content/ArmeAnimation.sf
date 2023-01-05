@@ -1,0 +1,14 @@
+{
+  "textureAtlas": {
+    "texture": "Arme.png",
+    "regionWidth": 13,
+    "regionHeight": 15
+  },
+  "cycles": {
+    "animation0": {
+      "frames": [0,1,2],
+      "isLooping": false,
+      "frameDuration": 0.05
+    }
+  }
+}
